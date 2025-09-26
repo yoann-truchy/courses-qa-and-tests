@@ -1,4 +1,4 @@
-import { describe, it, vi, afterEach, expect } from "vitest";
+import { describe, it, vi, afterEach, expect, assert } from "vitest";
 import { createUser } from "./user.service"
 import { createUserInRepository } from "./user.repository"
 

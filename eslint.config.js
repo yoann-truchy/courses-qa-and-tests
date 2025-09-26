@@ -6,7 +6,7 @@ export default [
   {
     ignores: ["**/*.test.js"],
     files: ["**/*.js"],
-    languageOptions: { sourceType: "commonjs" },
+    languageOptions: { sourceType: "module" },
   },
   { languageOptions: { globals: globals.node } },
   pluginJs.configs.recommended,
