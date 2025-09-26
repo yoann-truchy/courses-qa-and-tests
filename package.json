@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "@httpx/exception": "^3.0.5",
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.5.2",
     "@vitest/coverage-v8": "^1.6.1",
     "vite": "^5.2.0",
     "vitest": "^1.6.1",
