@@ -1,0 +1,46 @@
+stages:
+  - validate
+  - test
+  - build
+
+# YAML Anchors
+.node_job_base: &node_job_base
+  image: node:20-alpine
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+      - .npm/
+
+.rules_default: &rules_default
+  - if: '$CI_COMMIT_TAG'
+    when: never
+  - when: on_success
+
+install:
+  <<: *node_job_base
+  stage: validate
+  rules: *rules_default
+  script:
+    - npm ci --cache .npm --prefer-offline
+
+unit-test:
+  <<: *node_job_base
+  stage: test
+  rules: *rules_default
+  script:
+    - npm test
+
+build-image:
+  stage: build
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  variables:
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker image build --platform=linux/amd64 -t $IMAGE_TAG -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE --all-tags

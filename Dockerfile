@@ -1,3 +1,4 @@
+# Simple Dockerfile to run the API
 FROM node:20-alpine
 
 WORKDIR /app
@@ -8,6 +9,7 @@ RUN npm ci --omit=dev
 
 COPY . .
 
+ENV PORT=3000
 EXPOSE 3000
 
 CMD ["npm", "start"]
