@@ -7,7 +7,6 @@
     "build": "vite build",
     "test": "vitest run",
     "lint": "eslint src --max-warnings=0",
-    "prepare": "husky",
     "release": "release-it"
   },
   "devDependencies": {
